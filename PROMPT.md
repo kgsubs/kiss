@@ -53,6 +53,8 @@ The skill holds two parts: an adapter section built from the confirmed source ma
 
 ### Behavior (copy in full)
 
+**Never delete or move** any of the user's tasks or notes. The skill only ticks, annotates and adds.
+
 **Trigger.** Runs only when the user's whole message is the trigger word, never on any other wording and never on the agent's own initiative. First reply exactly `kiss (y/n)?` and end the turn. If the answer is no, nothing starts. Otherwise reply exactly `fresh (y/n)?` and end the turn. Yes runs a new scan. No skips the scan and resumes from `last-scan.md` at the project picker with the questions still marked open; if that file does not exist, say so in one line and run a new scan.
 
 **Scan.** Say in one line that the scan is running. Run it in a sub-agent if one is available, and wait for it, since nothing can be asked until it returns. Read every source in the adapter fresh and in full, never from memory or an earlier scan. Collect every open item that waits on the user to decide, plus any question left open in the current conversation. For each question return: project, the question in one line, source location and line, the facts needed to ask it (each with its source), the options with what each does and costs, the recommended option and why, whether a standing rule already decides it (then it is applied and noted, not asked), and whether a later record already answered it (then tick or fix the item instead of asking). Drop duplicates and already-answered items and list what was dropped and why. Leave out items that are the user's own actions rather than decisions, and items the user parked until a condition that has not been met.
